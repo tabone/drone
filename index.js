@@ -243,9 +243,11 @@ const client = {
   moveForward (ms = 0) {
     this.movement.pitch = -1
 
-    setTimeout(() => {
-      this.movement.pitch = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.pitch = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -253,9 +255,11 @@ const client = {
   moveBack (ms = 0) {
     this.movement.pitch = 1
 
-    setTimeout(() => {
-      this.movement.pitch = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.pitch = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -263,9 +267,11 @@ const client = {
   moveLeft (ms = 0) {
     this.movement.roll = -1
 
-    setTimeout(() => {
-      this.movement.roll = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.roll = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -273,9 +279,11 @@ const client = {
   moveRight (ms = 0) {
     this.movement.roll = 1
 
-    setTimeout(() => {
-      this.movement.roll = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.roll = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -283,9 +291,11 @@ const client = {
   moveUp (ms = 0) {
     this.movement.gaz = 1
 
-    setTimeout(() => {
-      this.movement.gaz = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.gaz = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -293,9 +303,11 @@ const client = {
   moveDown (ms = 0) {
     this.movement.gaz = -1
 
-    setTimeout(() => {
-      this.movement.gaz = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.gaz = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -303,9 +315,11 @@ const client = {
   spinLeft (ms = 0) {
     this.movement.yaw = -1
 
-    setTimeout(() => {
-      this.movement.yaw = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.yaw = 0
+      }, ms)
+    }
 
     return Promise.resolve()
   },
@@ -313,11 +327,29 @@ const client = {
   spinRight (ms = 0) {
     this.movement.yaw = 1
 
-    setTimeout(() => {
-      this.movement.yaw = 0
-    }, ms)
+    if (ms > 0) {
+      setTimeout(() => {
+        this.movement.yaw = 0
+      }, ms)
+    }
 
     return Promise.resolve()
+  },
+
+  resetPitch () {
+    this.movement.pitch = 0
+  },
+
+  resetRoll () {
+    this.movement.roll = 0
+  },
+
+  resetGaz () {
+    this.movement.gaz = 0
+  },
+
+  resetYaw () {
+    this.movement.yaw = 0
   }
 }
 
@@ -340,7 +372,11 @@ const clientAPI = {
    'moveUp',
    'moveDown',
    'spinLeft',
-   'spinRight' ]
+   'spinRight',
+   'resetPitch',
+   'resetRoll',
+   'resetGaz',
+   'resetYaw' ]
 .forEach((fn) => {
   clientAPI[fn] = (...args) => {
     return client[fn].bind(client, ...args)
